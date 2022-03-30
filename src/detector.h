@@ -4,7 +4,7 @@
 const char *udpAddress = "192.168.100.255";
 const int udpPort = 4210;
 String jsonner ="ESP32";
-uint8_t buffer[50] = "ESP v2";
+uint8_t buffer[50] = "ESP v2C";
 char incomingPacket[255];
 DynamicJsonDocument doc(1024);
 char jsonChar[100];
@@ -58,7 +58,7 @@ void rentol()
            jsonner.getBytes(dataArray, jsonner.length());
            Serial.println(sizeof(dataArray));
         //    finder.write(dataArray,sizeof(dataArray));
-           finder.write(buffer, 6);
+           finder.write(buffer, 7);
         //    finder.write(buffer, sizeof(ppl)-1);
            finder.endPacket();            
           }

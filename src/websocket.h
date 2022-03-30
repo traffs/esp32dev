@@ -17,8 +17,8 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     // }
     Serial.println("data");
     DynamicJsonDocument doc(1024);
-doc["time"]   = "23:11";
-doc["batterylevel"] = 3.3;
+doc["time"]   = "12:04";
+doc["CameraStatus"] = "ON";
 String output;
 // serializeJson(doc, Serial);
 serializeJson(doc, output);
