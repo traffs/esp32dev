@@ -11,7 +11,8 @@
 #include "i2cdevver.h"
 // #include "indicator.h"
 // #include "asynccudp.h"
-
+#include "streamer.h"
+ 
 struct Button
 {
   const uint8_t PIN;
@@ -46,7 +47,8 @@ void setup()
   //  lightsetup();
   //  digitalmpsetup();
   // setupUDP();
-  dmpsetup();
+  // dmpsetup();
+  camerasetup();
 }
 
 void loop()
@@ -63,7 +65,7 @@ void loop()
   OTAWebServer();
   // buttonloop();
   // broadcaster();
-  rentol();
+  // rentol();
   // lightloop();
   // udpier();
   // vcc_init();
@@ -71,5 +73,5 @@ void loop()
   // loopWOM();
   // delay(1);
   // digitalmploop();
-  dmploop();
+  // dmploop();
 }
