@@ -3,7 +3,7 @@
  
 // #include "TD_Credentials.h"
  
-byte bssid[] = {0x32, 0xC9, 0x29, 0xAB, 0x91, 0x4E}; // Repeater FeWo, 2.4 GHz
+// byte bssid[] = {0x32, 0xC9, 0x29, 0xAB, 0x91, 0x4E}; // Repeater FeWo, 2.4 GHz
 //byte bssid[] = {0x4E, 0x91, 0xAB, 0x29, 0xC9, 0x32}; // Repeater FeWo, 2.4 GHz
 const char *ssid="YOUR_SSID";
 const char* password ="YOUR_PASSWORD";
@@ -23,9 +23,9 @@ int connect2nearestAP()
 
   // this routine disconnects from WiFi, scans the network for the strongest AP at the defined SSID and tries to connect. returns WiFiOK, WiFiTimedOut, or WiFiNoSSID
 
-  int n;
+  // int n;
   int i = 0;
-
+  Serial.println(WiFi.getMode());
   // the following awkward code seems to work to avoid the following bug in ESP32 WiFi connection: https://github.com/espressif/arduino-esp32/issues/2501
   WiFi.disconnect(true); // delete old config
   WiFi.persistent(false); //Avoid to store Wifi configuration in Flash
@@ -37,47 +37,47 @@ int connect2nearestAP()
   delay(SaveDisconnectTime); // 500ms seems to work in most cases, may depend on AP
   WiFi.disconnect(true); // delete old config
 
-  Serial.println("scan start");
-  n = WiFi.scanNetworks(); // WiFi.scanNetworks will return the number of networks found
-  Serial.println("scan done");
+  // Serial.println("scan start");
+  // n = WiFi.scanNetworks(); // WiFi.scanNetworks will return the number of networks found
+  // Serial.println("scan done");
 
-  if (n == 0) {
-    Serial.println("no networks found");
-  } else {
-    Serial.print(n);
-    Serial.println(" networks found");
-    for (int i = 0; i < n; ++i) {
-      // Print SSID and RSSI for each network found
-      Serial.print(i + 1);
-      Serial.print(": ");
-      Serial.print("BSSID: ");
-      Serial.print(WiFi.BSSIDstr(i));
-      Serial.print("  ");
-      Serial.print(WiFi.RSSI(i));
-      Serial.print("dBm, ");
-      Serial.print(constrain(2 * (WiFi.RSSI(i) + 100), 0, 100));
-      Serial.print("% ");
-      Serial.print((WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? "open       " : "encrypted  ");
-      Serial.println(WiFi.SSID(i));
-      delay(10);
-    }
-  }
-  Serial.println();
+  // if (n == 0) {
+  //   Serial.println("no networks found");
+  // } else {
+  //   Serial.print(n);
+  //   Serial.println(" networks found");
+  //   for (int i = 0; i < n; ++i) {
+  //     // Print SSID and RSSI for each network found
+  //     Serial.print(i + 1);
+  //     Serial.print(": ");
+  //     Serial.print("BSSID: ");
+  //     Serial.print(WiFi.BSSIDstr(i));
+  //     Serial.print("  ");
+  //     Serial.print(WiFi.RSSI(i));
+  //     Serial.print("dBm, ");
+  //     Serial.print(constrain(2 * (WiFi.RSSI(i) + 100), 0, 100));
+  //     Serial.print("% ");
+  //     Serial.print((WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? "open       " : "encrypted  ");
+  //     Serial.println(WiFi.SSID(i));
+  //     delay(10);
+  //   }
+  // }
+  // Serial.println();
 
-  //  while ( !strcmp(ssid, &WiFi.SSID(i)) && (i < n)) {
-  // while ( String(ssid) != String(WiFi.SSID(i)) && (i < n)) {
-  //   i++;
+  // //  while ( !strcmp(ssid, &WiFi.SSID(i)) && (i < n)) {
+  // // while ( String(ssid) != String(WiFi.SSID(i)) && (i < n)) {
+  // //   i++;
+  // // }
+
+  // if (i == n) {
+  //   Serial.print("No network with SSID ");
+  //   Serial.print(String(ssid));
+  //   Serial.print(" found!");
+  //   return WiFiNoSSID;
   // }
 
-  if (i == n) {
-    Serial.print("No network with SSID ");
-    Serial.print(String(ssid));
-    Serial.print(" found!");
-    return WiFiNoSSID;
-  }
-
-  Serial.print("SSID match found at: ");
-  Serial.println(i + 1);
+  // Serial.print("SSID match found at: ");
+  // Serial.println(i + 1);
 
   WiFi.setHostname(HostName);
   WiFi.begin(ssid, password, 0, WiFi.BSSID(i));
