@@ -7,10 +7,7 @@
 AsyncWebServer wsserver(81);
 AsyncWebSocket ws("/");
 
-void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
-  AwsFrameInfo *info = (AwsFrameInfo*)arg;
-  if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
-    data[len] = 0;
+void dummyData(){
     // if (strcmp((char*)data, "toggle") == 0) {
     //   ledState = !ledState;
     //   notifyClients();
@@ -23,6 +20,27 @@ String output;
 // serializeJson(doc, Serial);
 serializeJson(doc, output);
      ws.textAll(output);
+}
+
+void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
+  AwsFrameInfo *info = (AwsFrameInfo*)arg;
+  if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
+    data[len] = 0;
+    String message =(char*)data;
+    Serial.println(message);
+    // if (strcmp((char*)data, "toggle") == 0) {
+    //   ledState = !ledState;
+    //   notifyClients();
+    // }
+    dummyData();
+//     Serial.println("data");
+//     DynamicJsonDocument doc(1024);
+// doc["time"]   = "23:11";
+// doc["batterylevel"] = 3.3;
+// String output;
+// // serializeJson(doc, Serial);
+// serializeJson(doc, output);
+//      ws.textAll(output);
   }
 }
 
